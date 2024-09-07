@@ -1,0 +1,305 @@
+2
+146
+0 "Tucuruvi"
+1 "Parada Inglesa"
+2 "Jardim São Paulo-Ayrton Senna"
+3 "Santana"
+4 "Carandiru"
+5 "Portuguesa-Tietê"
+6 "Armênia"
+7 "Tiradentes"
+8 "Luz"
+9 "São Bento"
+10 "Sé"
+11 "Liberdade"
+12 "São Joaquim"
+13 "Vergueiro"
+14 "Paraíso"
+15 "Ana Rosa"
+16 "Vila Mariana"
+17 "Santa Cruz"
+18 "Praça da Árvore"
+19 "Saúde"
+20 "São Judas"
+21 "Conceição"
+22 "Jabaquara"
+23 "Vila Prudente"
+24 "Tamanduateí"
+25 "Sacomã"
+26 "Alto do Ipiranga"
+27 "Santos-Imigrantes"
+28 "Chácara Klabin"
+29 "Brigadeiro"
+30 "Trianon-Masp"
+31 "Consolação"
+32 "Clínicas"
+33 "Santuário Nossa Senhora de Fátima-Sumaré"
+34 "Vila Madalena"
+35 "Corinthians-Itaquera"
+36 "Artur Alvim"
+37 "Patriarca"
+38 "Guilhermina-Esperança"
+39 "Vila Matilde"
+40 "Penha"
+41 "Carrão"
+42 "Tatuapé"
+43 "Belém"
+44 "Bresser-Mooca"
+45 "Brás"
+46 "Pedro II"
+47 "Anhangabaú"
+48 "República"
+49 "Santa Cecília"
+50 "Marechal Deodoro"
+51 "Palmeiras-Barra Funda"
+52 "Higienópolis-Mackenzie"
+53 "Paulista"
+54 "Oscar Freire"
+55 "Fradique Coutinho"
+56 "Faria Lima"
+57 "Pinheiros"
+58 "Butantã"
+59 "Morumbi"
+60 "Vila Sônia"
+61 "Capão Redondo"
+62 "Campo Limpo"
+63 "Vila das Belezas"
+64 "Giovanni Gronchi"
+65 "Santo Amaro"
+66 "Largo Treze"
+67 "Adolfo Pinheiro"
+68 "Alto da Boa Vista"
+69 "Borba Gato"
+70 "Brooklin"
+71 "Campo Belo"
+72 "Eucaliptos"
+73 "Moema"
+74 "AACD-Servidor"
+75 "Hospital São Paulo"
+76 "Água Branca"
+77 "Lapa(Linha7)"
+78 "Piqueri"
+79 "Júlio Prestes"
+80 "Lapa(Linha8)"
+81 "Domingos de Moraes"
+82 "Imperatriz Leopoldina"
+83 "Presidente Altino"
+84 "Osasco"
+85 "Comandante Sampaio"
+86 "Quitaúna"
+87 "Autódromo"
+88 "Jurubatuba"
+89 "Socorro"
+90 "João Dias"
+91 "Granja Julieta"
+92 "Morumbi"
+93 "Berrini"
+94 "Vila Olímpia"
+95 "Cidade Jardim"
+96 "Hebraica-Rebouças"
+97 "Cidade Universitária"
+98 "Jaguaré-Villa Lobos"
+99 "Ceasa"
+100 "Juventus-Mooca"
+101 "Ipiranga"
+102 "São Caetano do Sul"
+103 "Dom Bosco"
+104 "José Bonifácio"
+105 "Guaianases"
+106 "Antonio Gianetti Neto"
+107 "Ferraz de Vasconcelos"
+108 "Poá"
+109 "Calmon Viana"
+110 "Suzano"
+111 "Jundiapeba"
+112 "Bráz Cubas"
+113 "Mogi das Cruzes"
+114 "Estudantes"
+115 "Engenheiro Goulart"
+116 "USP Leste"
+117 "Comendador Ermelino"
+118 "São Miguel Paulista"
+119 "Jardim Helena"
+120 "Itaim Paulista"
+121 "Jardim Romano"
+122 "Eng Manoel Feio"
+123 "Itaquaquecetuba"
+124 "Aracaré"
+125 "Guarulhos-Cecap
+126 "Aeroporto-Guarulhos"
+127 "Oratório"
+128 "São Lucas"
+129 "Camilo Haddad"
+130 "Vila Tolstói"
+131 "Vila União"
+132 "Jardim Planalto"
+133 "Sapopemba"
+134 "Fazenda da Juta"
+135 "São Mateus"
+136 "Jardim Colonial"
+137 "Pirituba"
+138 "Vila Clarice"
+139 "Jaraguá"
+140 "Vila Aurora"
+141 "Utinga"
+142 "Prefeito Saladino"
+143 "Santo André"
+144 "Capuava"
+145 "Mauá"
+
+155
+0 1 1.2
+1 2 1.3
+2 3 1.5
+3 4 1.2
+4 5 1.4
+5 6 1.1
+6 7 1.0
+7 8 1.6
+8 9 1.2
+9 10 0.8
+10 11 1.1
+11 12 1.2
+12 13 1.3
+13 14 1.4
+14 15 1.2
+15 16 1.5
+16 17 1.3
+17 18 1.2
+18 19 1.1
+19 20 1.4
+20 21 1.2
+21 22 1.5
+23 24 1.1
+24 25 1.2
+25 26 1.3
+26 27 1.2
+27 28 1.3
+28 15 1.4
+15 14 1.2
+14 29 1.1
+29 30 1.5
+30 31 1.3
+31 32 1.2
+32 33 1.3
+33 34 1.4
+35 36 1.0
+36 37 1.2
+37 38 1.3
+38 39 1.1
+39 40 1.2
+40 41 1.5
+41 42 1.2
+42 43 1.3
+43 44 1.1
+44 45 1.4
+45 46 1.3
+46 10 1.5
+10 47 1.2
+47 48 1.1
+48 49 1.3
+49 50 1.4
+50 51 1.2
+8 48 1.3
+48 52 1.1
+52 53 1.4
+53 54 1.2
+54 55 1.1
+55 56 1.2
+56 57 1.5
+57 58 1.3
+58 59 1.4
+59 60 1.4
+61 62 1.2
+62 63 1.4
+63 64 1.3
+64 65 1.5
+65 66 1.1
+66 67 1.2
+67 68 1.3
+68 69 1.4
+69 70 1.2
+70 71 1.3
+71 72 1.4
+72 73 1.5
+73 74 1.1
+74 75 1.0
+75 17 1.3
+17 28 1.4
+51 76 1.9
+76 77 1.9
+77 78 1.4
+79 51 2.8
+51 80 3.5
+80 81 1.5
+81 82 1.7
+82 83 1.5
+83 84 2.1
+84 85 2.1
+85 86 1.3
+87 88 1.9
+88 89 1.5
+89 65 2.2
+65 90 2.5
+90 91 1.9
+91 92 1.7
+92 93 1.6
+93 94 1.1
+94 95 1.2
+95 96 2.3
+96 57 1.1
+57 97 2.8
+97 98 2.2
+98 99 1.6
+99 83 3.2
+8 45 1.5
+45 100 1.7
+100 101 3.1
+101 24 2.1
+24 102 2.7
+45 42 3.5
+42 35 8.5
+35 103 1.7
+103 104 1.9
+104 105 2.3
+105 106 2.4
+106 107 1.9
+107 108 2.5
+108 109 1.2
+109 110 4.3
+110 111 5.7
+111 112 2.1
+112 113 2.4
+113 114 1.8
+42 115 6.1
+115 116 1.4
+116 117 1.7
+117 118 2.2
+118 119 1.9
+119 120 1.4
+120 121 1.1
+121 122 2.7
+122 123 1.6
+123 124 1.7
+124 109 1.9
+115 125 7.9
+125 126 4.3
+23 127 1.4
+127 128 1.0
+128 129 0.8
+129 130 0.9
+130 131 1.1
+131 132 1.4
+132 133 1.1
+133 134 0.9
+134 135 1.4
+135 136 1.8
+78 137 1.9
+137 138 2.5
+138 139 2.0
+139 140 1.9
+102 141 1.5
+141 142 1.7
+142 143 1.2
+143 144 3.5
+144 145 2.9
