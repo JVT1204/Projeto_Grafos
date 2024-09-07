@@ -12,3 +12,7 @@ Vértices (Nodos): Cada estação de metrô ou trem será representada como um v
 Arestas: As arestas representarão as conexões diretas entre as estações, com pesos correspondentes à distância física (em quilomêtros) entre as estações.
 Linhas Consideradas: Todas as linhas de metrô (Linha 1-Azul, Linha 2-Verde, Linha 3-Vermelha, etc.) e da CPTM (Linha 7-Rubi, Linha 8-Diamante, Linha 9-Esmeralda, etc.) serão incluídas.
 Cenário Realista: Consideraremos problemas reais, como sobrecarga em determinados trechos da rede, e a necessidade de melhorar a conectividade entre áreas específicas da cidade.
+
+## Link graph online:
+
+http://graphonline.ru/pt/?graph=QfJVwwwmGotKWDuZ
