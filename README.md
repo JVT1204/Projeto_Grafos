@@ -1,7 +1,17 @@
 # Projeto_Grafos
 
-    Projeto para a matéria Teoria dos Grafos que tem como objetivo modelar a rede metroviária e de trens metropolitanos de São Paulo como um grafo para analisar e propor otimizações que possam melhorar a eficiência do sistema de transporte público da cidade.
-    Serão considerados tanto as linhas de metrô quanto as da CPTM, tendo uma versão simulada demonstrando
+## Integrantes
+
+- Daniel Reis Raske - 10223349
+- Felipe Mazzeo Barbosa - 10402808
+- Fernando Pegoraro Bilia - 10402097
+- João Vitor Tortorello - 10402674
+
+## Descrição projeto
+
+Projeto para a matéria Teoria dos Grafos na Universidade Presbiteriana Mackenzie que tem como objetivo modelar a rede metroviária e de trens metropolitanos de São Paulo como um grafo para analisar e propor otimizações que possam melhorar a eficiência do sistema de transporte público da cidade.
+
+Serão considerados tanto as linhas de metrô quanto as da CPTM, tendo uma versão simulada demonstrando
 as estações e suas respectivas ligações
 
 ## Definições e Considerações:
@@ -14,3 +24,7 @@ Cenário Realista: Consideramos o problema real da eficiência do caminho pelos 
 ## Link graph online:
 
 http://graphonline.ru/pt/?graph=vMuiCbBCWBToRENZ
+
+## Imagem grafo (Rede Metroviária de São Paulo)
+
+![alt](/assets/Imagem_grafo.png)
