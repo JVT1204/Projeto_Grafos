@@ -2,7 +2,7 @@
 
 ## Integrantes
 
-- Fernando Pegoraro Bilia - 10402097dhedtgd
+- Fernando Pegoraro Bilia - 10402097
 - Daniel Reis Raske - 10223349
 - Felipe Mazzeo Barbosa - 10402808
 - João Vitor Tortorello - 10402674
