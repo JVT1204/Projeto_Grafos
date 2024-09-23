@@ -5,10 +5,11 @@ class TGrafoND:
         self.num_arestas = 0  # Contador de arestas
 
     def insereA(self, v, w, peso):
-        if self.adj[v][w] is None:  # Só insere se não houver aresta já existente
+        # Só insere se não houver aresta já existente e não contar a aresta duas vezes
+        if self.adj[v][w] is None and self.adj[w][v] is None:
             self.adj[v][w] = peso
             self.adj[w][v] = peso  # Grafo não direcionado
-            self.num_arestas += 1  # Incrementa o contador de arestas
+            self.num_arestas += 1  # Incrementa o contador de arestas apenas uma vez
 
     def removeVertice(self, v):
         for i in range(self.n):
@@ -35,12 +36,12 @@ class TGrafoND:
             tipo_grafo = int(linhas[0].strip())  # Tipo do grafo (não usado diretamente)
             self.n = int(linhas[1].strip())  # Número de vértices
             self.adj = [[None for _ in range(self.n)] for _ in range(self.n)]  # Reinicializar a matriz de adjacência
-            self.num_arestas = int(linhas[2 + self.n].strip())  # Número de arestas esperado
-            
+            num_arestas_esperadas = int(linhas[2 + self.n].strip())  # Número de arestas esperado
+
             # Lê a lista de vértices (pula essas linhas, pois a implementação não utiliza os nomes dos vértices diretamente)
             for i in range(2, 2 + self.n):
                 vertice_info = linhas[i].strip().split(' ', 1)  # Ignora o nome do vértice neste exemplo
-            
+
             # Lê a lista de arestas e seus pesos
             arestas_lidas = 0
             for linha in linhas[2 + self.n + 1:]:
@@ -49,12 +50,12 @@ class TGrafoND:
                     v, w, peso = map(float, valores)
                     self.insereA(int(v), int(w), peso)
                     arestas_lidas += 1
-                else:
-                    print(f"Linha ignorada: {linha.strip()} (não contém 3 valores)")
-            
-            # Verifica se o número de arestas lidas corresponde ao número esperado
-            if arestas_lidas != self.num_arestas:
-                print(f"Alerta: Número de arestas lido ({arestas_lidas}) diferente do esperado ({self.num_arestas})")
+
+            # Verificar se o número de arestas lidas está correto
+            if arestas_lidas != num_arestas_esperadas:
+                print(f"Alerta: Número de arestas lido ({arestas_lidas}) diferente do esperado ({num_arestas_esperadas})")
+            else:
+                print(f"Arquivo carregado corretamente com {arestas_lidas} arestas.")
 
     def gravarNoArquivo(self, nome_arquivo):
         with open(nome_arquivo, 'w') as arquivo:
