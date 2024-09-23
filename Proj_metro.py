@@ -88,8 +88,7 @@ def menu():
         print("5. Remover vértice")
         print("6. Remover aresta")
         print("7. Mostrar conteúdo do grafo")
-        print("8. Exibir grafo (mesmo comportamento da opção 2)")
-        print("9. Sair")
+        print("8. Sair")
         opcao = input("Escolha uma opção: ")
 
         if opcao == "1":
@@ -152,14 +151,6 @@ def menu():
                 print("Grafo não carregado.")
 
         elif opcao == "8":
-            if grafo:
-                nome_arquivo_saida = input("Digite o nome do arquivo de saída: ")
-                grafo.gravarNoArquivo(nome_arquivo_saida)
-                print(f"Grafo exibido e gravado no arquivo de saída com {grafo.num_arestas} arestas.")
-            else:
-                print("Grafo não carregado.")
-
-        elif opcao == "9":
             print("Encerrando o programa.")
             break
 
