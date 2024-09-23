@@ -78,6 +78,57 @@ class TGrafoND:
                 linha = [f"{peso if peso is not None else '∞'}" for peso in self.adj[i]]
                 arquivo.write(f"Vértice {i}: {linha}\n")
 
+    def categoriaConexidade(self):
+        # Função auxiliar para DFS (busca em profundidade)
+        def dfs(v, visitados, matriz_adj):
+            visitados[v] = True
+            for i in range(self.n):
+                if matriz_adj[v][i] is not None and not visitados[i]:
+                    dfs(i, visitados, matriz_adj)
+
+        # Verificar se o grafo é fracamente conectado (ignora direção das arestas)
+        def conexo():
+            visitados = [False] * self.n
+            dfs(0, visitados, self.adj)  # Faz DFS a partir do vértice 0
+            return all(visitados)
+
+        # Verificar se o grafo é fortemente conectado (considerando a direção das arestas)
+        def fortemente_conexo():
+            # Passo 1: Verifica se todos os vértices são alcançáveis a partir de um vértice no grafo original
+            visitados = [False] * self.n
+            dfs(0, visitados, self.adj)
+            if not all(visitados):
+                return False
+
+            # Passo 2: Verifica no grafo transposto (arestas invertidas)
+            transposta = [[None for _ in range(self.n)] for _ in range(self.n)]
+            for i in range(self.n):
+                for j in range(self.n):
+                    if self.adj[i][j] is not None:
+                        transposta[j][i] = self.adj[i][j]
+
+            # Faz DFS no grafo transposto
+            visitados = [False] * self.n
+            dfs(0, visitados, transposta)
+            return all(visitados)
+
+        # Se for fortemente conectado (C3)
+        if fortemente_conexo():
+            return "C3: Fortemente conectado"
+        
+        # Se for fracamente conectado (C2)
+        if conexo():
+            return "C2: Fracamente conectado"
+        
+        # Se houver componentes desconectadas, então é C0 (desconectado)
+        visitados = [False] * self.n
+        dfs(0, visitados, self.adj)
+        if not all(visitados):
+            return "C0: Desconectado"
+        
+        # Se não for nem fortemente nem fracamente conectado, verificar conectividade parcial (C1)
+        return "C1: Parcialmente conectado"
+
 def menu():
     grafo = None
     while True:
@@ -89,7 +140,8 @@ def menu():
         print("5. Remover vértice")
         print("6. Remover aresta")
         print("7. Mostrar conteúdo do grafo")
-        print("8. Sair")
+        print("8. Verificar grau de conexidade")
+        print("9. Sair")
         opcao = input("Escolha uma opção: ")
 
         if opcao == "1":
@@ -152,6 +204,12 @@ def menu():
                 print("Grafo não carregado.")
 
         elif opcao == "8":
+            if grafo:
+                print(f"Grau de conexidade do grafo: {grafo.categoriaConexidade()}")
+            else:
+                print("Grafo não carregado.")
+
+        elif opcao == "9":
             print("Encerrando o programa.")
             break
 
