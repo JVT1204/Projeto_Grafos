@@ -1,28 +1,38 @@
 class TGrafoND:
-    def __init__(self, n):
+    def __init__(self, n, tipo_grafo):
         self.n = n  # Número de vértices
+        self.tipo_grafo = tipo_grafo  # Tipo de grafo (1 = direcionado, 2 = não direcionado)
         self.adj = [[None for _ in range(n)] for _ in range(n)]  # Matriz de adjacência
         self.num_arestas = 0  # Contador de arestas
+        self.operacoes = []  # Armazena as operações feitas no grafo (inserção/remoção)
 
     def insereA(self, v, w, peso):
-        # Só insere se não houver aresta já existente e não contar a aresta duas vezes
+        # Só insere se não houver aresta já existente e não contar a aresta duas vezes em grafos não direcionados
         if self.adj[v][w] is None and self.adj[w][v] is None:
             self.adj[v][w] = peso
-            self.adj[w][v] = peso  # Grafo não direcionado
-            self.num_arestas += 1  # Incrementa o contador de arestas apenas uma vez
+            if self.tipo_grafo == 2:  # Se for grafo não direcionado, insere em ambas as direções
+                self.adj[w][v] = peso
+            self.num_arestas += 1
+            self.operacoes.append(f"Aresta inserida: {v} - {w} com peso {peso}")
 
     def removeVertice(self, v):
-        for i in range(self.n):
-            if self.adj[v][i] is not None:  # Se o vértice tiver arestas
-                self.num_arestas -= 1  # Diminui a contagem de arestas
-            self.adj[v][i] = None
-            self.adj[i][v] = None
+        if v < self.n:
+            for i in range(self.n):
+                if self.adj[v][i] is not None:  # Se o vértice tiver arestas
+                    self.num_arestas -= 1  # Diminui a contagem de arestas
+                    self.operacoes.append(f"Aresta removida: {v} - {i}")
+                self.adj[v][i] = None
+                if self.tipo_grafo == 2:  # Se for grafo não direcionado, remove em ambas as direções
+                    self.adj[i][v] = None
+            self.operacoes.append(f"Vértice removido: {v}")
 
     def removeAresta(self, v, w):
         if self.adj[v][w] is not None:  # Remove somente se houver uma aresta
             self.adj[v][w] = None
-            self.adj[w][v] = None
-            self.num_arestas -= 1  # Diminui a contagem de arestas
+            if self.tipo_grafo == 2:  # Se for grafo não direcionado, remove em ambas as direções
+                self.adj[w][v] = None
+            self.num_arestas -= 1
+            self.operacoes.append(f"Aresta removida: {v} - {w}")
 
     def mostrarGrafo(self):
         print("Matriz de Adjacência:")
@@ -33,7 +43,7 @@ class TGrafoND:
     def carregarDoArquivo(self, nome_arquivo):
         with open(nome_arquivo, 'r') as arquivo:
             linhas = arquivo.readlines()
-            tipo_grafo = int(linhas[0].strip())  # Tipo do grafo (não usado diretamente)
+            self.tipo_grafo = int(linhas[0].strip())  # Tipo do grafo (1 = direcionado, 2 = não direcionado)
             self.n = int(linhas[1].strip())  # Número de vértices
             self.adj = [[None for _ in range(self.n)] for _ in range(self.n)]  # Reinicializar a matriz de adjacência
             num_arestas_esperadas = int(linhas[2 + self.n].strip())  # Número de arestas esperado
@@ -59,16 +69,20 @@ class TGrafoND:
 
     def gravarNoArquivo(self, nome_arquivo):
         with open(nome_arquivo, 'w') as arquivo:
-            arquivo.write(f"2\n{self.n}\n")  # Tipo de grafo: não direcionado com peso nas arestas
-            for i in range(self.n):
-                arquivo.write(f"{i}\n")
+            # Tipo de grafo e número de vértices
+            arquivo.write(f"{self.tipo_grafo}\n{self.n}\n")
             
-            # Grava o número de arestas
+            # Operações realizadas no grafo (feedback)
+            if self.operacoes:
+                arquivo.write("Operações realizadas:\n")
+                for op in self.operacoes:
+                    arquivo.write(f"{op}\n")
+                arquivo.write("\n")
+            
+            # Grava a lista de vértices e arestas
             arquivo.write(f"{self.num_arestas}\n")
-            
-            # Grava as arestas
             for i in range(self.n):
-                for j in range(i + 1, self.n):
+                for j in range(i + 1 if self.tipo_grafo == 2 else 0, self.n):
                     if self.adj[i][j] is not None:
                         arquivo.write(f"{i} {j} {self.adj[i][j]}\n")
             
@@ -86,55 +100,60 @@ class TGrafoND:
                 if matriz_adj[v][i] is not None and not visitados[i]:
                     dfs(i, visitados, matriz_adj)
 
-        # Verificar se o grafo é fracamente conectado (ignora direção das arestas)
-        def conexo():
+        if self.tipo_grafo == 2:  # Se o grafo for não direcionado, verificar apenas se é conexo ou desconexo
             visitados = [False] * self.n
-            dfs(0, visitados, self.adj)  # Faz DFS a partir do vértice 0
-            return all(visitados)
+            dfs(0, visitados, self.adj)
+            return "Conexo" if all(visitados) else "Desconexo"
+        else:  # Se o grafo for direcionado, aplicar as regras C0, C1, C2, C3
+            # Verificar se o grafo é fracamente conectado (ignora direção das arestas)
+            def conexo():
+                visitados = [False] * self.n
+                dfs(0, visitados, self.adj)
+                return all(visitados)
 
-        # Verificar se o grafo é fortemente conectado (considerando a direção das arestas)
-        def fortemente_conexo():
-            # Passo 1: Verifica se todos os vértices são alcançáveis a partir de um vértice no grafo original
+            # Verificar se o grafo é fortemente conectado (considerando a direção das arestas)
+            def fortemente_conexo():
+                # Passo 1: Verifica se todos os vértices são alcançáveis a partir de um vértice no grafo original
+                visitados = [False] * self.n
+                dfs(0, visitados, self.adj)
+                if not all(visitados):
+                    return False
+
+                # Passo 2: Verifica no grafo transposto (arestas invertidas)
+                transposta = [[None for _ in range(self.n)] for _ in range(self.n)]
+                for i in range(self.n):
+                    for j in range(self.n):
+                        if self.adj[i][j] is not None:
+                            transposta[j][i] = self.adj[i][j]
+
+                # Faz DFS no grafo transposto
+                visitados = [False] * self.n
+                dfs(0, visitados, transposta)
+                return all(visitados)
+
+            # Se for fortemente conectado (C3)
+            if fortemente_conexo():
+                return "C3: Fortemente conectado"
+            
+            # Se for fracamente conectado (C2)
+            if conexo():
+                return "C2: Fracamente conectado"
+            
+            # Se houver componentes desconectadas, então é C0 (desconectado)
             visitados = [False] * self.n
             dfs(0, visitados, self.adj)
             if not all(visitados):
-                return False
-
-            # Passo 2: Verifica no grafo transposto (arestas invertidas)
-            transposta = [[None for _ in range(self.n)] for _ in range(self.n)]
-            for i in range(self.n):
-                for j in range(self.n):
-                    if self.adj[i][j] is not None:
-                        transposta[j][i] = self.adj[i][j]
-
-            # Faz DFS no grafo transposto
-            visitados = [False] * self.n
-            dfs(0, visitados, transposta)
-            return all(visitados)
-
-        # Se for fortemente conectado (C3)
-        if fortemente_conexo():
-            return "C3: Fortemente conectado"
-        
-        # Se for fracamente conectado (C2)
-        if conexo():
-            return "C2: Fracamente conectado"
-        
-        # Se houver componentes desconectadas, então é C0 (desconectado)
-        visitados = [False] * self.n
-        dfs(0, visitados, self.adj)
-        if not all(visitados):
-            return "C0: Desconectado"
-        
-        # Se não for nem fortemente nem fracamente conectado, verificar conectividade parcial (C1)
-        return "C1: Parcialmente conectado"
+                return "C0: Desconectado"
+            
+            # Se não for nem fortemente nem fracamente conectado, verificar conectividade parcial (C1)
+            return "C1: Parcialmente conectado"
 
 def menu():
     grafo = None
     while True:
         print("\n--- Menu de Opções ---")
-        print("1. Ler dados do arquivo grafo.txt")
-        print("2. Gravar dados no arquivo de saída (e exibir grafo)")
+        print("1. Ler dados do arquivo texto desejado")
+        print("2. Gravar dados no arquivo de saída")
         print("3. Inserir vértice")
         print("4. Inserir aresta")
         print("5. Remover vértice")
@@ -146,7 +165,7 @@ def menu():
 
         if opcao == "1":
             nome_arquivo = input("Digite o nome do arquivo de entrada: ")
-            grafo = TGrafoND(0)
+            grafo = TGrafoND(0, 1)
             grafo.carregarDoArquivo(nome_arquivo)
             print("Grafo carregado com sucesso.")
 
@@ -165,6 +184,7 @@ def menu():
                 grafo.adj.append([None] * grafo.n)
                 for i in range(grafo.n):
                     grafo.adj[i].append(None)
+                grafo.operacoes.append(f"Vértice inserido: {novo_vertice}")
                 print(f"Vértice {novo_vertice} inserido com sucesso.")
             else:
                 print("Grafo não carregado.")
