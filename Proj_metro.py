@@ -217,17 +217,23 @@ def menu():
             if grafo:
                 v = int(input("Digite o vértice de origem: "))
                 w = int(input("Digite o vértice de destino: "))
-                peso = float(input("Digite o peso da aresta: "))
-                grafo.insereA(v, w, peso)
-                print("Aresta inserida com sucesso.")
+                if not grafo.existe_vertice(v) or not grafo.existe_vertice(w):
+                    print(f"Erro: O vértice {v} ou {w} não existe.")
+                else:
+                    peso = float(input("Digite o peso da aresta: "))
+                    grafo.insereA(v, w, peso)
+                    print("Aresta inserida com sucesso.")
             else:
                 print("Grafo não carregado.")
 
         elif opcao == "5":
             if grafo:
                 v = int(input("Digite o vértice a ser removido: "))
-                grafo.removeVertice(v)
-                print(f"Vértice {v} removido com sucesso.")
+                if not grafo.existe_vertice(v):
+                    print(f"Erro: O vértice {v} não existe.")
+                else:
+                    grafo.removeVertice(v)
+                    print(f"Vértice {v} removido com sucesso.")
             else:
                 print("Grafo não carregado.")
 
