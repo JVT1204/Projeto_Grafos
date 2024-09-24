@@ -4,14 +4,14 @@ class TGrafoND:
         self.tipo_grafo = tipo_grafo  # Tipo de grafo (1 = direcionado, 2 = não direcionado)
         self.adj = [[None for _ in range(n)] for _ in range(n)]  # Matriz de adjacência
         self.num_arestas = 0  # Contador de arestas
-        self.operacoes = []  # Armazena as operações feitas no grafo (inserção/remoção)
+        self.operacoes = []  # Armazena as operações feitas no grafo (somente inserção/remoção)
 
     def insereA(self, v, w, peso):
         # Só insere se não houver aresta já existente e não contar a aresta duas vezes em grafos não direcionados
-        if self.adj[v][w] is None and self.adj[w][v] is None:
+        if self.adj[v][w] is None:  # Aresta ainda não existe
             self.adj[v][w] = peso
-            if self.tipo_grafo == 2:  # Se for grafo não direcionado, insere em ambas as direções
-                self.adj[w][v] = peso
+            if self.tipo_grafo == 2 and self.adj[w][v] is None:  # Se for grafo não direcionado
+                self.adj[w][v] = peso  # Inserir aresta na direção oposta
             self.num_arestas += 1
             self.operacoes.append(f"Aresta inserida: {v} - {w} com peso {peso}")
 
@@ -29,7 +29,7 @@ class TGrafoND:
     def removeAresta(self, v, w):
         if self.adj[v][w] is not None:  # Remove somente se houver uma aresta
             self.adj[v][w] = None
-            if self.tipo_grafo == 2:  # Se for grafo não direcionado, remove em ambas as direções
+            if self.tipo_grafo == 2 and self.adj[w][v] is not None:  # Se for grafo não direcionado
                 self.adj[w][v] = None
             self.num_arestas -= 1
             self.operacoes.append(f"Aresta removida: {v} - {w}")
@@ -58,36 +58,35 @@ class TGrafoND:
                 valores = linha.strip().split()
                 if len(valores) == 3:  # Verifica se a linha tem exatamente 3 valores (v, w, peso)
                     v, w, peso = map(float, valores)
-                    self.insereA(int(v), int(w), peso)
+                    self.adj[int(v)][int(w)] = peso
+                    if self.tipo_grafo == 2 and self.adj[int(w)][int(v)] is None:  # Se for não direcionado
+                        self.adj[int(w)][int(v)] = peso
                     arestas_lidas += 1
 
-            # Verificar se o número de arestas lidas está correto
-            if arestas_lidas != num_arestas_esperadas:
-                print(f"Alerta: Número de arestas lido ({arestas_lidas}) diferente do esperado ({num_arestas_esperadas})")
+            # Ajuste para grafos não direcionados: contamos as arestas corretamente sem dividir
+            self.num_arestas = arestas_lidas
+
+            # Verificar se o número de arestas lidas está correto (usando o número correto para grafos não direcionados)
+            if self.num_arestas != num_arestas_esperadas:
+                print(f"Alerta: Número de arestas lido ({self.num_arestas}) diferente do esperado ({num_arestas_esperadas})")
             else:
-                print(f"Arquivo carregado corretamente com {arestas_lidas} arestas.")
+                print(f"Arquivo carregado corretamente com {self.num_arestas} arestas.")
 
     def gravarNoArquivo(self, nome_arquivo):
         with open(nome_arquivo, 'w') as arquivo:
-            # Tipo de grafo e número de vértices
-            arquivo.write(f"{self.tipo_grafo}\n{self.n}\n")
+            # Gravar o número de vértices e arestas com rótulos
+            arquivo.write(f"Vértices: {self.n}\n")
+            arquivo.write(f"Arestas: {self.num_arestas}\n")
             
-            # Operações realizadas no grafo (feedback)
+            # Operações realizadas no grafo (feedback) - Apenas novas inserções e remoções
             if self.operacoes:
                 arquivo.write("Operações realizadas:\n")
                 for op in self.operacoes:
                     arquivo.write(f"{op}\n")
                 arquivo.write("\n")
             
-            # Grava a lista de vértices e arestas
-            arquivo.write(f"{self.num_arestas}\n")
-            for i in range(self.n):
-                for j in range(i + 1 if self.tipo_grafo == 2 else 0, self.n):
-                    if self.adj[i][j] is not None:
-                        arquivo.write(f"{i} {j} {self.adj[i][j]}\n")
-            
-            # Mostrar a tabela (matriz de adjacência) no arquivo
-            arquivo.write("\nMatriz de Adjacência:\n")
+            # Mostrar o estado final do grafo, com a matriz de adjacência
+            arquivo.write("\nMatriz de Adjacência (Estado Atual do Grafo):\n")
             for i in range(self.n):
                 linha = [f"{peso if peso is not None else '∞'}" for peso in self.adj[i]]
                 arquivo.write(f"Vértice {i}: {linha}\n")
@@ -173,7 +172,7 @@ def menu():
             if grafo:
                 nome_arquivo_saida = input("Digite o nome do arquivo de saída: ")
                 grafo.gravarNoArquivo(nome_arquivo_saida)
-                print(f"Grafo exibido e gravado no arquivo de saída com {grafo.num_arestas} arestas.")
+                print(f"Grafo exibido e gravado no arquivo de saída.")
             else:
                 print("Grafo não carregado.")
 
