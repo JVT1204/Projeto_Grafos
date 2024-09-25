@@ -1,7 +1,7 @@
-# Daniel Reis Raske 10223349
-# Felipe Mazzeo Barbosa 10402808
-# Fernando Pegoraro Bilia 10402097
-# João Vitor Tortorello 10402674
+# Daniel Reis Raske - 10223349
+# Felipe Mazzeo Barbosa - 10402808
+# Fernando Pegoraro Bilia - 10402097
+# João Vitor Tortorello - 10402674
 
 # Arquivo de funções: contém todas as funções necessárias para o funcionamento do projeto
 
