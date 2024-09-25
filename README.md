@@ -14,6 +14,14 @@ Projeto para a matéria Teoria dos Grafos na Universidade Presbiteriana Mackenzi
 Serão considerados tanto as linhas de metrô quanto as da CPTM, tendo uma versão simulada demonstrando
 as estações e suas respectivas ligações
 
+## Objetivo:
+
+Para esse projeto consideramos o problema real da eficiência do caminho pelos trilhos de São Paulo, como sobrecarga em determinados trechos da rede e facilitar a logística de trajeto.
+
+Nosso objetivo é criar um sistema eficiente de caminho mínimo para a rede de transporte de São Paulo, o que pode facilitar a vida de muitos paulistanos.
+
+Como requisito do projeto, foi pedido pelo professor da disciplina de Teoria de Grafos que destaque um dos Objetivos do Desenvolvimento Sustentável (ODS - https://odsbrasil.gov.br/), e o escolhido foi o de número 9 (Indústria, inovação e infraestrutura), já que escolhemos resolver um problema de infraestrutra da cidade que é o transporte público, visando melhorar o cotidiano e impulsionar maior bem-estar de seus residentes.
+
 ## Definições:
 
 #### Arquivo texto (`grafo_metro`) criado com a finalidade de simular em forma de grafo o sistema metroviário de São Paulo
@@ -42,16 +50,6 @@ as estações e suas respectivas ligações
 ### 4. Número de arestas
 ### 5. Lista de arestas (próximas n linhas) - `[vértice_origem] [vértice_destino] [peso]`
 - Arestas: As arestas representarão as conexões diretas entre as estações, com pesos correspondentes à distância física (em quilomêtros) entre as estações.
-
-## Objetivo:
-
-Para esse projeto consideramos o problema real da eficiência do caminho pelos trilhos de São Paulo, como sobrecarga em determinados trechos da rede e facilitar a logística de trajeto.
-
-Nosso objetivo é criar um sistema eficiente de caminho mínimo para a rede de transporte de São Paulo, o que pode facilitar a vida de muitos paulistanos.
-
-Como requisito do projeto, foi pedido pelo professor da disciplina de Teoria de Grafos que destaque um dos Objetivos do Desenvolvimento Sustentável (ODS - https://odsbrasil.gov.br/), e o escolhido foi o de número 9 (Indústria, inovação e infraestrutura), já que escolhemos resolver um problema de infraestrutra da cidade que é o transporte público, visando melhorar o cotidiano e impulsionar maior bem-estar dos residentes da cidade
-
-## Relatório do projeto:
 
 ## Link graph online:
 
