@@ -23,7 +23,8 @@ def menu():
         print("7. Mostrar conteúdo do grafo")
         print("8. Verificar grau de conexidade")
         print("9. Encontrar caminho mínimo entre estações")
-        print("10. Sair")
+        print("10. Analisar características do grafo")
+        print("11. Sair")
         opcao = input("Escolha uma opção: ")
 
         if opcao == "1":
@@ -110,6 +111,18 @@ def menu():
                 print("Grafo não carregado.")
 
         elif opcao == "10":
+            if grafo:
+                # Realiza as análises e exibe os resultados
+                analise = grafo.analisar_caracteristicas()
+                print("Características do grafo:")
+                print(f"Grau dos vértices: {analise['grau_vertices']}")
+                print(f"É Euleriano: {'Sim' if analise['euleriano'] else 'Não'}")
+                print(f"É Hamiltoniano: {'Sim' if analise['hamiltoniano'] else 'Não'}")
+                print(f"Coloração do grafo (vértice: cor): {analise['coloracao']}")
+            else:
+                print("Grafo não carregado.")
+
+        elif opcao == "11":
             print("Encerrando o programa.")
             break
 

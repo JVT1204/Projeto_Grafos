@@ -14,6 +14,7 @@ class TGrafoND:
         self.adj = [[None for _ in range(n)] for _ in range(n)]  # Matriz de adjacência
         self.num_arestas = 0  # Contador de arestas
         self.operacoes = []  # Armazena as operações feitas no grafo (somente inserção/remoção)
+        self.cores = [-1] * n  # Inicializa cores dos vértices como não coloridos (-1)
 
     def existe_vertice(self, v):
         return 0 <= v < self.n
@@ -79,6 +80,7 @@ class TGrafoND:
                 self.tipo_grafo = int(linhas[0].strip())  # Tipo do grafo (1 = direcionado, 2 = não direcionado)
                 self.n = int(linhas[1].strip())  # Número de vértices
                 self.adj = [[None for _ in range(self.n)] for _ in range(self.n)]  # Reinicializar a matriz de adjacência
+                self.cores = [-1] * self.n  # Reinicializar a lista de cores para o número correto de vértices
                 num_arestas_esperadas = int(linhas[2 + self.n].strip())  # Número de arestas esperado
 
                 # Lê a lista de vértices (pula essas linhas, pois a implementação não utiliza os nomes dos vértices diretamente)
@@ -216,3 +218,60 @@ class TGrafoND:
                 min_index = v
 
         return min_index
+
+    def grau_vertices(self):
+        graus = {v: 0 for v in range(self.n)}
+        for v in range(self.n):
+            for w in range(self.n):
+                if self.adj[v][w] is not None:
+                    graus[v] += 1
+        return graus
+
+    def is_euleriano(self):
+        graus = self.grau_vertices()
+        return all(grau % 2 == 0 for grau in graus.values())
+
+    def is_hamiltoniano(self):
+        graus = self.grau_vertices()
+        return all(grau >= self.n / 2 for grau in graus.values())
+
+    def coloração_sequencial(self):
+        # Reinicializa as cores antes de colorir
+        self.cores = [-1] * self.n
+        self.cores[0] = 0
+        cor_disponivel = [False] * self.n
+
+        for u in range(1, self.n):
+            # Marca cores dos vizinhos como indisponíveis
+            for i in range(self.n):
+                if self.adj[u][i] is not None and self.cores[i] != -1:
+                    cor_disponivel[self.cores[i]] = True
+
+            # Encontra a primeira cor disponível
+            cor = 0
+            while cor < self.n and cor_disponivel[cor]:
+                cor += 1
+
+            # Atribui a menor cor disponível ao vértice u
+            self.cores[u] = cor
+
+            # Reseta as cores para o próximo vértice
+            cor_disponivel = [False] * self.n
+
+    def exibir_cores(self):
+        # Verifica se a coloração foi realizada
+        if -1 in self.cores:
+            print("O grafo ainda não foi colorido.")
+        else:
+            return {vertice: self.cores[vertice] for vertice in range(self.n)}
+
+    def analisar_caracteristicas(self):
+        # Garante que o grafo está colorido antes de retornar as características
+        if -1 in self.cores:
+            self.coloração_sequencial()
+        return {
+            "grau_vertices": self.grau_vertices(),
+            "euleriano": self.is_euleriano(),
+            "hamiltoniano": self.is_hamiltoniano(),
+            "coloracao": self.exibir_cores()  # A coloração já estará garantida aqui
+        }
