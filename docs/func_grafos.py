@@ -5,6 +5,8 @@
 
 # Arquivo de funções: contém todas as funções necessárias para o funcionamento do projeto
 
+import sys
+
 class TGrafoND:
     def __init__(self, n, tipo_grafo):
         self.n = n  # Número de vértices
@@ -179,3 +181,38 @@ class TGrafoND:
             
             # Se não for nem fortemente nem fracamente conectado, verificar conectividade parcial (C1)
             return "C1: Parcialmente conectado"
+
+    # Implementação do Algoritmo de Dijkstra para encontrar o caminho mais curto
+    def dijkstra(self, origem, destino):
+        dist = [sys.maxsize] * self.n  # Inicializa distâncias como infinito
+        dist[origem] = 0
+        visitados = [False] * self.n
+        antecessor = [None] * self.n
+
+        for _ in range(self.n):
+            u = self.min_dist(dist, visitados)
+            visitados[u] = True
+
+            for v in range(self.n):
+                if self.adj[u][v] is not None and not visitados[v] and dist[u] + self.adj[u][v] < dist[v]:
+                    dist[v] = dist[u] + self.adj[u][v]
+                    antecessor[v] = u
+
+        caminho = []
+        atual = destino
+        while atual is not None:
+            caminho.insert(0, atual)
+            atual = antecessor[atual]
+
+        return caminho if caminho[0] == origem else None, dist[destino]
+
+    def min_dist(self, dist, visitados):
+        min_val = sys.maxsize
+        min_index = -1
+
+        for v in range(self.n):
+            if dist[v] < min_val and not visitados[v]:
+                min_val = dist[v]
+                min_index = v
+
+        return min_index

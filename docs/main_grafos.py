@@ -22,7 +22,8 @@ def menu():
         print("6. Remover aresta")
         print("7. Mostrar conteúdo do grafo")
         print("8. Verificar grau de conexidade")
-        print("9. Sair")
+        print("9. Encontrar caminho mínimo entre estações")
+        print("10. Sair")
         opcao = input("Escolha uma opção: ")
 
         if opcao == "1":
@@ -96,6 +97,19 @@ def menu():
                 print("Grafo não carregado.")
 
         elif opcao == "9":
+            if grafo:
+                inicio = int(input("Digite o ID da estação de partida: "))
+                fim = int(input("Digite o ID da estação de destino: "))
+                caminho, distancia = grafo.dijkstra(inicio, fim)
+                if caminho:
+                    print(f"Caminho mínimo entre {inicio} e {fim}: {caminho}")
+                    print(f"Distância total: {distancia}")
+                else:
+                    print("Não existe caminho entre as estações selecionadas.")
+            else:
+                print("Grafo não carregado.")
+
+        elif opcao == "10":
             print("Encerrando o programa.")
             break
 
