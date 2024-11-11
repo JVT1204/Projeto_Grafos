@@ -99,7 +99,10 @@ def menu():
 
         elif opcao == "9":
             if grafo:
-
+                print("\nLinhas e estações disponíveis:")
+                for linha, estacoes in grafo.linhas.items():
+                    print(f"{linha}: {', '.join(estacoes)}\n")
+    
                 estacao_origem = input("Digite o nome da estação de partida: ").strip().lower()
                 estacao_destino = input("Digite o nome da estação de destino: ").strip().lower()
 

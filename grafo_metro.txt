@@ -58,7 +58,7 @@
 55 "Faria Lima"
 56 "Pinheiros"
 57 "Butantã"
-58 "Sao Paulo - Morumbi"
+58 "São Paulo - Morumbi"
 59 "Vila Sônia"
 60 "Capão Redondo"
 61 "Campo Limpo"

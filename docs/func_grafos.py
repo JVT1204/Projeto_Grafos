@@ -5,7 +5,25 @@
 
 # Arquivo de funções: contém todas as funções necessárias para o funcionamento do projeto
 
+from mapeamento_linhas import LINHAS_METRO_CPTM
 import sys
+
+    # Função para remover acentos sem importar biblioteca
+def remover_acentos(texto):
+    acentos = {
+        'á': 'a', 'ã': 'a', 'â': 'a',
+        'é': 'e',
+        'í': 'i',
+        'ó': 'o', 'õ': 'o',
+        'ú': 'u',
+        'ç': 'c', 'Ç': 'C',
+        'Á': 'A', 'Ã': 'A', 'Â': 'A',
+        'É': 'E',
+        'Í': 'I',
+        'Ó': 'O', 'Õ': 'O',
+        'Ú': 'U'
+    }
+    return ''.join(acentos.get(char, char) for char in texto)
 
 class TGrafoND:
     def __init__(self, n, tipo_grafo):
@@ -16,15 +34,24 @@ class TGrafoND:
         self.operacoes = []  # Armazena as operações feitas no grafo (somente inserção/remoção)
         self.cores = [-1] * n  # Inicializa cores dos vértices como não coloridos (-1)
         self.estacoes = {}  # Dicionário para mapear ID da estação para o nome
+        self.linhas = {linha: estacoes[:] for linha, estacoes in LINHAS_METRO_CPTM.items()}
 
     def existe_vertice(self, v):
         return 0 <= v < self.n
 
     def obter_id_estacao_por_nome(self, nome_estacao):
+        # Primeira tentativa: busca pelo nome exatamente como digitado
         nome_estacao = nome_estacao.strip().lower()
-        for id_estacao, nome in self.estacoes.items():
-            if nome.lower() == nome_estacao:
+        for id_estacao, nome_original in self.estacoes.items():
+            if nome_estacao.lower() == nome_original.lower():
                 return id_estacao
+
+        # Segunda tentativa: busca sem considerar acentuação
+        nome_normalizado = remover_acentos(nome_estacao).lower()
+        for id_estacao, nome_original in self.estacoes.items():
+            if remover_acentos(nome_original).lower() == nome_normalizado:
+                return id_estacao
+                
         print(f"Erro: Estação '{nome_estacao}' não encontrada. Verifique o nome e tente novamente.")
         return None
 
@@ -99,6 +126,11 @@ class TGrafoND:
                     id_vertice = int(dados_vertice[0])
                     nome_estacao = dados_vertice[1].strip('"')
                     self.estacoes[id_vertice] = nome_estacao
+
+                    # Associa a estação a todas as linhas em que ela aparece
+                    for linha, estacoes in LINHAS_METRO_CPTM.items():
+                        if nome_estacao in estacoes and nome_estacao not in self.linhas[linha]:
+                            self.linhas[linha].append(nome_estacao)
                 
                 # Lê a lista de arestas e seus pesos
                 arestas_lidas = 0
