@@ -42,13 +42,11 @@ def menu():
 
         elif opcao == "3":
             if grafo:
-                novo_vertice = grafo.n
-                grafo.n += 1
-                grafo.adj.append([None] * grafo.n)
-                for i in range(grafo.n):
-                    grafo.adj[i].append(None)
-                grafo.operacoes.append(f"Vértice inserido: {novo_vertice}")
-                print(f"Vértice {novo_vertice} inserido com sucesso.")
+                nome_estacao = input("Digite o nome da estação para o novo vértice: ").strip()
+                if nome_estacao:
+                    grafo.inserir_vertice_com_nome(nome_estacao)
+                else:
+                    print("Nome da estação não fornecido. Vértice não inserido.")
             else:
                 print("Grafo não carregado.")
 

@@ -69,6 +69,17 @@ class TGrafoND:
             self.num_arestas += 1
             self.operacoes.append(f"Aresta inserida: {v} - {w} com peso {peso}")
 
+    def inserir_vertice_com_nome(self, nome_estacao):
+        novo_vertice = self.n
+        self.n += 1
+        self.adj.append([None] * self.n)
+        for i in range(self.n):
+            self.adj[i].append(None)
+        self.estacoes[novo_vertice] = nome_estacao
+        self.operacoes.append(f"Vértice inserido: {novo_vertice} ({nome_estacao})")
+        print(f"Vértice {novo_vertice} com nome '{nome_estacao}' inserido com sucesso.")
+
+
     def removeVertice(self, v):
         # Verifica se o vértice existe
         if not self.existe_vertice(v):
