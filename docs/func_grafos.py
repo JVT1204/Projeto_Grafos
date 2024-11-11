@@ -165,6 +165,9 @@ class TGrafoND:
                     print(f"Arquivo carregado corretamente com {self.num_arestas} arestas.")
         except FileNotFoundError:
             print(f"Erro: Arquivo '{nome_arquivo}' não encontrado.")
+        finally:
+            # Limpa as operações registradas durante o carregamento
+            self.operacoes.clear()
 
     def gravarNoArquivo(self, nome_arquivo):
         with open(nome_arquivo, 'w') as arquivo:
@@ -184,6 +187,11 @@ class TGrafoND:
             for i in range(self.n):
                 linha = [f"{peso if peso is not None else '∞'}" for peso in self.adj[i]]
                 arquivo.write(f"Vértice {i}: {linha}\n")
+
+            # Exibir os nomes das estações atualizados
+            arquivo.write("\nNomes das Estações (Atualizados):\n")
+            for id_vertice, nome in self.estacoes.items():
+                arquivo.write(f"{id_vertice}: {nome}\n")
 
     def categoriaConexidade(self):
         # Função auxiliar para DFS (busca em profundidade)
