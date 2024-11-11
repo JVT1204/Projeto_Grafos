@@ -15,9 +15,18 @@ class TGrafoND:
         self.num_arestas = 0  # Contador de arestas
         self.operacoes = []  # Armazena as operações feitas no grafo (somente inserção/remoção)
         self.cores = [-1] * n  # Inicializa cores dos vértices como não coloridos (-1)
+        self.estacoes = {}  # Dicionário para mapear ID da estação para o nome
 
     def existe_vertice(self, v):
         return 0 <= v < self.n
+
+    def obter_id_estacao_por_nome(self, nome_estacao):
+        nome_estacao = nome_estacao.strip().lower()
+        for id_estacao, nome in self.estacoes.items():
+            if nome.lower() == nome_estacao:
+                return id_estacao
+        print(f"Erro: Estação '{nome_estacao}' não encontrada. Verifique o nome e tente novamente.")
+        return None
 
     def insereA(self, v, w, peso):
         # Verifica se os vértices existem
@@ -81,18 +90,23 @@ class TGrafoND:
                 self.n = int(linhas[1].strip())  # Número de vértices
                 self.adj = [[None for _ in range(self.n)] for _ in range(self.n)]  # Reinicializar a matriz de adjacência
                 self.cores = [-1] * self.n  # Reinicializar a lista de cores para o número correto de vértices
+                self.estacoes = {}  # Reinicializar o dicionário de estações
                 num_arestas_esperadas = int(linhas[2 + self.n].strip())  # Número de arestas esperado
 
                 # Lê a lista de vértices (pula essas linhas, pois a implementação não utiliza os nomes dos vértices diretamente)
                 for i in range(2, 2 + self.n):
-                    vertice_info = linhas[i].strip().split(' ', 1)  # Ignora o nome do vértice neste exemplo
-
+                    dados_vertice = linhas[i].strip().split(' ', 1)
+                    id_vertice = int(dados_vertice[0])
+                    nome_estacao = dados_vertice[1].strip('"')
+                    self.estacoes[id_vertice] = nome_estacao
+                
                 # Lê a lista de arestas e seus pesos
                 arestas_lidas = 0
                 for linha in linhas[2 + self.n + 1:]:
                     valores = linha.strip().split()
                     if len(valores) == 3:  # Verifica se a linha tem exatamente 3 valores (v, w, peso)
                         v, w, peso = map(float, valores)
+                        self.insereA(int(v), int(w), peso)  # Utiliza o método insereA para inserir a aresta
                         self.adj[int(v)][int(w)] = peso
                         if self.tipo_grafo == 2 and self.adj[int(w)][int(v)] is None:  # Se for não direcionado
                             self.adj[int(w)][int(v)] = peso
@@ -186,6 +200,7 @@ class TGrafoND:
 
     # Implementação do Algoritmo de Dijkstra para encontrar o caminho mais curto
     def dijkstra(self, origem, destino):
+
         dist = [sys.maxsize] * self.n  # Inicializa distâncias como infinito
         dist[origem] = 0
         visitados = [False] * self.n
@@ -203,10 +218,10 @@ class TGrafoND:
         caminho = []
         atual = destino
         while atual is not None:
-            caminho.insert(0, atual)
+            caminho.insert(0, self.estacoes[atual])  # Converte ID para o nome da estação
             atual = antecessor[atual]
 
-        return caminho if caminho[0] == origem else None, dist[destino]
+        return caminho if caminho[0] == self.estacoes[origem] else None, dist[destino]
 
     def min_dist(self, dist, visitados):
         min_val = sys.maxsize

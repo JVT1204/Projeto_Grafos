@@ -99,14 +99,22 @@ def menu():
 
         elif opcao == "9":
             if grafo:
-                inicio = int(input("Digite o ID da estação de partida: "))
-                fim = int(input("Digite o ID da estação de destino: "))
-                caminho, distancia = grafo.dijkstra(inicio, fim)
-                if caminho:
-                    print(f"Caminho mínimo entre {inicio} e {fim}: {caminho}")
-                    print(f"Distância total: {distancia}")
+
+                estacao_origem = input("Digite o nome da estação de partida: ").strip().lower()
+                estacao_destino = input("Digite o nome da estação de destino: ").strip().lower()
+
+                origem = grafo.obter_id_estacao_por_nome(estacao_origem)
+                destino = grafo.obter_id_estacao_por_nome(estacao_destino)
+
+                if origem is not None and destino is not None:
+                    caminho, distancia = grafo.dijkstra(origem, destino)
+                    if caminho:
+                        print(f"Caminho mínimo entre {grafo.estacoes[origem]} e {grafo.estacoes[destino]}: {caminho}")
+                        print(f"Distância total: {distancia:.1f}")
+                    else:
+                        print("Não existe caminho entre as estações selecionadas.")
                 else:
-                    print("Não existe caminho entre as estações selecionadas.")
+                    print("Estação de origem ou destino não encontrada. Tente novamente.")
             else:
                 print("Grafo não carregado.")
 
