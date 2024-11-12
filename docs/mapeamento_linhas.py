@@ -34,10 +34,10 @@ LINHAS_METRO_CPTM = {
         "Jundiaí", "Várzea Paulista", "Campo Limpo Paulista", "Botujuru", 
         "Francisco Morato", "Baltazar Fidélis", "Branco da Rocha", "Caieiras", "Perus", 
         "Vila Aurora", "Jaraguá", "Vila Clarice", "Pirituba", "Piqueri", 
-        "Lapa", "Agua Branca", "Palmeiras-Barra Funda", "Luz", "Brás"
+        "Lapa(Linha7)", "Agua Branca", "Palmeiras-Barra Funda", "Luz", "Brás"
     ],
     "Linha 8 - Diamante": [
-        "Júlio Prestes", "Palmeiras-Barra Funda", "Lapa", "Domingos de Moraes", 
+        "Júlio Prestes", "Palmeiras-Barra Funda", "Lapa(Linha8)", "Domingos de Moraes", 
         "Imperatriz Leopoldina", "Presidente Altino", "Osasco", "Comandante Sampaio", 
         "Quitaúna"
     ],
