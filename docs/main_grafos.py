@@ -121,13 +121,48 @@ def menu():
 
         elif opcao == "10":
             if grafo:
-                # Realiza as análises e exibe os resultados
-                analise = grafo.analisar_caracteristicas()
-                print("Características do grafo:")
-                print(f"Grau dos vértices: {analise['grau_vertices']}")
-                print(f"É Euleriano: {'Sim' if analise['euleriano'] else 'Não'}")
-                print(f"É Hamiltoniano: {'Sim' if analise['hamiltoniano'] else 'Não'}")
-                print(f"Coloração do grafo (vértice: cor): {analise['coloracao']}")
+                while True:
+                    print("\n--- Análise de Características do Grafo ---")
+                    print("1. Verificar grau dos vértices")
+                    print("2. Verificar se o grafo é Euleriano")
+                    print("3. Verificar se o grafo é Hamiltoniano")
+                    print("4. Verificar coloração do grafo")
+                    print("5. Voltar ao menu principal")
+                    sub_opcao = input("Escolha uma opção: ")
+
+                    if sub_opcao == "1":
+                        graus = grafo.grau_vertices()
+                        print("Grau dos vértices:")
+                        for vertice, grau in graus.items():
+                            nome_estacao = grafo.estacoes.get(vertice, "Desconhecido")
+                            print(f"Vértice {vertice} ({nome_estacao}): grau {grau}")
+
+                    elif sub_opcao == "2":
+                        euleriano = grafo.is_euleriano()
+                        print(f"O grafo é Euleriano: {'Sim' if euleriano else 'Não'}")
+
+                    elif sub_opcao == "3":
+                        hamiltoniano = grafo.is_hamiltoniano()
+                        print(f"O grafo é Hamiltoniano: {'Sim' if hamiltoniano else 'Não'}")
+
+                    elif sub_opcao == "4":
+                        # Verifica se o grafo já foi colorido; se não, realiza a coloração automaticamente
+                        if -1 in grafo.cores:
+                            grafo.coloração_sequencial()  # Colore o grafo automaticamente sem exibir mensagens
+
+                        # Exibe a coloração do grafo
+                        coloração = grafo.exibir_cores()
+                        print("Coloração do grafo (vértice: cor):")
+                        for vertice, cor in coloração.items():
+                            nome_estacao = grafo.estacoes.get(vertice, "Desconhecido")
+                            print(f"Vértice {vertice} ({nome_estacao}): cor {cor}")
+
+                    elif sub_opcao == "5":
+                        print("Retornando ao menu principal.")
+                        break
+
+                    else:
+                        print("Opção inválida. Tente novamente.")
             else:
                 print("Grafo não carregado.")
 
