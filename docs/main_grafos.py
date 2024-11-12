@@ -52,33 +52,48 @@ def menu():
 
         elif opcao == "4":
             if grafo:
-                v = int(input("Digite o vértice de origem: "))
-                w = int(input("Digite o vértice de destino: "))
-                if not grafo.existe_vertice(v) or not grafo.existe_vertice(w):
-                    print(f"Erro: O vértice {v} ou {w} não existe.")
+                estacao_origem = input("Digite o nome da estação de origem: ")
+                estacao_destino = input("Digite o nome da estação de destino: ")
+                origem = grafo.obter_id_estacao_por_nome(estacao_origem)
+                destino = grafo.obter_id_estacao_por_nome(estacao_destino)
+
+                if origem is None or destino is None:
+                    print("Erro: Uma das estações não foi encontrada.")
                 else:
                     peso = float(input("Digite o peso da aresta: "))
-                    grafo.insereA(v, w, peso)
-                    print("Aresta inserida com sucesso.")
+                    grafo.insereA(origem, destino, peso)
+                    grafo.operacoes.append(f"Aresta inserida: {estacao_origem} - {estacao_destino} com peso {peso}")
+                    print(f"Aresta entre '{estacao_origem}' e '{estacao_destino}' inserida com sucesso.")
             else:
                 print("Grafo não carregado.")
 
         elif opcao == "5":
             if grafo:
-                v = int(input("Digite o vértice a ser removido: "))
-                if not grafo.existe_vertice(v):
-                    print(f"Erro: O vértice {v} não existe.")
+                estacao = input("Digite o nome da estação a ser removida: ")
+                vertice = grafo.obter_id_estacao_por_nome(estacao)
+
+                if vertice is None:
+                    print("Erro: A estação não foi encontrada.")
                 else:
-                    grafo.removeVertice(v)
-                    print(f"Vértice {v} removido com sucesso.")
+                    grafo.removeVertice(vertice)
+                    grafo.operacoes.append(f"Vértice removido: {estacao}")
+                    print(f"Estação '{estacao}' removida com sucesso.")
             else:
                 print("Grafo não carregado.")
 
         elif opcao == "6":
             if grafo:
-                v = int(input("Digite o vértice de origem: "))
-                w = int(input("Digite o vértice de destino: "))
-                grafo.removeAresta(v, w)
+                estacao_origem = input("Digite o nome da estação de origem: ")
+                estacao_destino = input("Digite o nome da estação de destino: ")
+                origem = grafo.obter_id_estacao_por_nome(estacao_origem)
+                destino = grafo.obter_id_estacao_por_nome(estacao_destino)
+
+                if origem is None or destino is None:
+                    print("Erro: Uma das estações não foi encontrada.")
+                else:
+                    grafo.removeAresta(origem, destino)
+                    grafo.operacoes.append(f"Aresta removida: {estacao_origem} - {estacao_destino}")
+                    print(f"Aresta entre '{estacao_origem}' e '{estacao_destino}' removida com sucesso.")
             else:
                 print("Grafo não carregado.")
 
