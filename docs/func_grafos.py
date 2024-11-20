@@ -8,7 +8,7 @@
 from mapeamento_linhas import LINHAS_METRO_CPTM
 import sys
 
-    # Função para remover acentos sem importar biblioteca
+# Função para remover acentos, prevenindo erro de execução se usuário errar nome da estação
 def remover_acentos(texto):
     acentos = {
         'á': 'a', 'ã': 'a', 'â': 'a',
@@ -332,12 +332,11 @@ class TGrafoND:
             return {vertice: self.cores[vertice] for vertice in range(self.n)}
 
     def analisar_caracteristicas(self):
-        # Garante que o grafo está colorido antes de retornar as características
         if -1 in self.cores:
             self.coloração_sequencial()
         return {
             "grau_vertices": self.grau_vertices(),
             "euleriano": self.is_euleriano(),
             "hamiltoniano": self.is_hamiltoniano(),
-            "coloracao": self.exibir_cores()  # A coloração já estará garantida aqui
+            "coloracao": self.exibir_cores()
         }

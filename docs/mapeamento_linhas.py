@@ -1,3 +1,8 @@
+# Daniel Reis Raske - 10223349
+# Felipe Mazzeo Barbosa - 10402808
+# Fernando Pegoraro Bilia - 10402097
+# João Vitor Tortorello - 10402674
+
 # Auxílio para organização das linhas para o usuário
 
 LINHAS_METRO_CPTM = {
