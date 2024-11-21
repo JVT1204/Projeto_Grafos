@@ -35,9 +35,7 @@ LINHAS_METRO_CPTM = {
         "Borba Gato", "Brooklin", "Campo Belo", "Eucaliptos", "Moema", 
         "AACD-Servidor", "Hospital São Paulo", "Santa Cruz", "Chácara Klabin"
     ],
-    "Linha 7 - Rubi": [
-        "Jundiaí", "Várzea Paulista", "Campo Limpo Paulista", "Botujuru", 
-        "Francisco Morato", "Baltazar Fidélis", "Branco da Rocha", "Caieiras", "Perus", 
+    "Linha 7 - Rubi": [ 
         "Vila Aurora", "Jaraguá", "Vila Clarice", "Pirituba", "Piqueri", 
         "Lapa(Linha7)", "Agua Branca", "Palmeiras-Barra Funda", "Luz", "Brás"
     ],
